@@ -1,0 +1,136 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "NAME MICROSERVICE",
+    "description": "DESCRIPTION OF MICROSERVICE.",
+    "version": "1.0.0",
+  },
+  "host": "127.0.0.1",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "basePath": "/api",
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/path": {
+      "post": {
+        "tags": [
+          "name api"
+        ],
+        "summary": "sumary api",
+        "description": "description api",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+            {
+              "name": "header name",
+              "in": "header",
+              "required": true,
+              "type": "string",
+              "description": "description header",
+            },
+            {
+              "name": "header name 2",
+              "in": "header",
+              "required": false,
+              "type": "string",
+              "description": "description header 2",
+            },
+            {
+              "name": "nameModel",
+              "in": "body",
+              "schema": {
+                "$ref": "#/definitions/ObjectRequest"
+              },
+            },
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation.",
+            "schema": {
+              "$ref": "#/definitions/ObjectResponse"
+            },
+          },
+          "400": {
+            "description": "<table border=1px><tr><td>Type</td><td>Code</td><td>Details</td></tr><tr><td>ERROR</td><td>BAD REQUEST</td><td>INVALID PARAMETERS</td></tr></table>",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            },
+          },
+          "401": {
+            "description": "<table border=1px><tr><td>Type</td><td>Code</td><td>Details</td></tr><tr><td>ERROR</td><td>UNAUTHORIZED</td><td>AUTHORIZATION IS INVALID</td></tr></table>",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            },
+          },
+          "500": {
+            "description": "<table border=1px><tr><td>Type</td><td>Code</td><td>Details</td></tr><tr><td>fatal</td><td>serverUnavailable</td><td>SOMETHING WRONG, INTERNAL SERVER ERROR</td></tr></table>",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            },
+          },
+        },
+      },
+    },
+  },
+  "definitions": {
+    "ObjectRequest": {
+      "description": "Object for request",
+      "type": "object",
+      "properties": {
+        "username": {
+          "description": "Description of properties.",
+          "type": "string",
+          "example": "1",
+        },
+      },
+    },
+    "ObjectResponse": {
+      "description": "Object for response",
+      "type": "object",
+      "properties": {
+        "isActive": {
+          "description": "Description of properties.",
+          "type": "boolean",
+          "example": true
+        },
+      },
+    },
+    "ErrorResponse": {
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Invalid Request did not confirm to the specification and was unprocessed and rejected. Please fix the value and try again",
+          "enum": [
+            "error",
+            "warn",
+            "invalid",
+            "fatal"
+          ]
+        },
+        "code": {
+          "description": "Error code which qualifies the error",
+          "type": "string"
+        },
+        "details": {
+          "description": "Human readable explanation specific to the occurrence of the problem",
+          "type": "string"
+        },
+        "tiemstamp": {
+            "description": "Timestamp of the error",
+            "type": "string"
+        },
+      },
+      "required": [
+        "code"
+      ],
+    },
+  },
+}
